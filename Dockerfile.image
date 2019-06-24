@@ -1,0 +1,4 @@
+FROM alpine
+COPY --from=ironpark/confluent-kafka-go:build /usr/lib/librdkafka.so.1 /usr/lib/librdkafka.so.1
+COPY --from=ironpark/confluent-kafka-go:build /lib /lib
+RUN mkdir /lib64 && ln -s /lib/libc.musl-x86_64.so.1 /lib64/ld-linux-x86-64.so.2
