@@ -1,8 +1,8 @@
 #=================================
 # librdkafka + golang base container image build
 #=================================
-FROM golang:1.13-alpine3.9 as base
-ARG LIBRDKAFKA_VERSION=v1.0.0
+FROM golang:1.12.5-alpine3.9 as base
+ARG LIBRDKAFKA_VERSION=v1.4.0
 ENV LIBRDKAFKA_VERSION=$LIBRDKAFKA_VERSION 
 RUN echo "librdkafka :$LIBRDKAFKA_VERSION"
 RUN apk add --no-cache --virtual .fetch-deps ca-certificates tar
