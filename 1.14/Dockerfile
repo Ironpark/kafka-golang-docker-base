@@ -1,7 +1,7 @@
 #=================================
 # librdkafka + golang base container image build
 #=================================
-FROM golang:1.12.5-alpine3.11 as base
+FROM golang:1.14.2-alpine3.11 as base
 ARG LIBRDKAFKA_VERSION=v1.4.0
 ENV LIBRDKAFKA_VERSION=$LIBRDKAFKA_VERSION 
 RUN echo "librdkafka :$LIBRDKAFKA_VERSION"
