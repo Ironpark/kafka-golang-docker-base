@@ -1,14 +1,16 @@
 #=================================
 # librdkafka + golang base container image build
 #=================================
-FROM golang:1.12.5-alpine3.9 as base
-
+FROM golang:1.13-alpine3.9 as base
+ARG LIBRDKAFKA_VERSION=v1.0.0
+ENV LIBRDKAFKA_VERSION=$LIBRDKAFKA_VERSION 
+RUN echo "librdkafka :$LIBRDKAFKA_VERSION"
 RUN apk add --no-cache --virtual .fetch-deps ca-certificates tar
 RUN mkdir -p /root/librdkafka
 
 WORKDIR /root/librdkafka
 
-RUN wget -O "librdkafka.tar.gz" "https://github.com/edenhill/librdkafka/archive/v1.0.0.tar.gz" &&\
+RUN wget -O "librdkafka.tar.gz" "https://github.com/edenhill/librdkafka/archive/$LIBRDKAFKA_VERSION.tar.gz" &&\
   mkdir -p librdkafka
 
 RUN tar \
@@ -22,7 +24,8 @@ RUN apk add --no-cache --virtual .build-deps \
   make \
   pkgconfig \
   g++ \
-  zstd-static
+  zstd-static \
+  git
 
 RUN cd "librdkafka" && \
   STATIC_LIB_zstd=/usr/lib/libzstd.a ./configure --enable-static --prefix=/usr && \
